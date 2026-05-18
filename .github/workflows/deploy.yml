@@ -1,0 +1,65 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    name: SSH → VPS → git pull → docker compose up
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            set -e
+
+            echo "==> Go to iccp_backend_core project"
+            cd /home/wyn/app/project/iccp/iccp_backend_core
+
+            echo "==> Sync source to origin/develop"
+            git fetch origin develop
+            git checkout develop
+            git reset --hard origin/develop
+            git clean -fd
+
+            echo "==> Ensure shared network exists"
+            docker network inspect iccp-network >/dev/null 2>&1 || docker network create iccp-network
+
+            echo "==> Ensure postgres, redis, and office-preview-renderer are running"
+            docker compose --env-file .env.prod -f docker-compose.prod.yaml up -d postgres redis office-preview-renderer
+
+            echo "==> Wait for postgres to be healthy"
+            until [ "$(docker inspect --format='{{.State.Health.Status}}' postgres_prod)" = "healthy" ]; do
+              echo "    postgres not ready yet, retrying in 3s..."
+              sleep 3
+            done
+            echo "    postgres is healthy!"
+
+            echo "==> Build app image (no cache)"
+            docker compose --env-file .env.prod -f docker-compose.prod.yaml build --no-cache iccp-be-core
+
+            echo "==> Start app container"
+            echo "    (entrypoint.sh will run migration before starting app)"
+            docker compose --env-file .env.prod -f docker-compose.prod.yaml up -d --no-deps iccp-be-core
+
+            echo "==> Ensure core container is attached to shared network"
+            docker network connect iccp-network iccp-be-core-prod || true
+
+            echo "==> Ensure nginx is running"
+            docker compose --env-file .env.prod -f docker-compose.prod.yaml up -d --no-deps nginx
+
+            echo "==> Delete old image"
+            docker image prune -f
+
+            echo "==> Deploy success!"
