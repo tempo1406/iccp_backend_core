@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome to BoilerDay</title>
+  </head>
+  <body style="margin: 0; padding: 0; background-color: #f4f4f7;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f4f4f7; padding: 20px;">
+      <tr>
+        <td align="center">
+          <table width="600" cellpadding="0" cellspacing="0" style="background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+            <!-- Header Image -->
+            <tr>
+              <td style="background-color: #4b2c8c;">
+                <img
+                  src="https://img.freepik.com/premium-photo/robots-chatbots-ai-bots-are-designed-modern-style-futuristic-technology-stock-concept-service-communication_1257429-76451.jpg"
+                  alt="AI Robot"
+                  style="width: 100%; height: auto; display: block;"
+                />
+              </td>
+            </tr>
+
+            <!-- Title -->
+            <tr>
+              <td style="padding: 30px; text-align: center;">
+                <h1 style="color: #4b2c8c; margin-bottom: 10px;">Welcome to BoilerDay, {{username}}!</h1>
+                <p style="color: #555; font-size: 16px;">
+                  Your journey into the future of AI starts here.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style="padding: 0 30px 30px;">
+                <p style="font-size: 15px; color: #333;">
+                  Hello <strong>{{username}}</strong> ({{email}}),
+                </p>
+                <p style="font-size: 15px; color: #333;">
+                  We're thrilled to welcome you to <strong>BoilerDay</strong>. You now have access to powerful tools and a growing community dedicated to AI innovation.
+                </p>
+
+                <p style="font-size: 15px; color: #333;">
+                  Feel free to explore, connect, and grow. If you have any questions, we're here to help.
+                </p>
+
+                <div style="text-align: center; margin: 25px 0;">
+                  <a
+                    href="{{url}}"
+                    style="
+                      background-color: #6a4bc3;
+                      color: white;
+                      padding: 12px 24px;
+                      border-radius: 6px;
+                      text-decoration: none;
+                      font-weight: bold;
+                      display: inline-block;
+                    "
+                    >Get Started</a
+                  >
+                </div>
+
+                <p style="font-size: 14px; color: #777; text-align: center;">
+                  Sent on {{dateTime}}
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td style="background-color: #f0eefc; padding: 20px; text-align: center; font-size: 13px; color: #777;">
+                &copy; {{year}} BoilerDay, Inc. All rights reserved.<br />
+                123 Innovation Avenue, Future City, AI World
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

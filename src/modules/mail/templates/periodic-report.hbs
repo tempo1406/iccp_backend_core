@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Periodic Report</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827;">
+    <div style="max-width: 760px; margin: 0 auto; padding: 24px;">
+      <h2 style="margin-bottom: 8px;">{{organizationName}} Periodic Report</h2>
+      <p style="margin-top: 0; color: #4b5563;">
+        Hello {{recipientName}}, here is the report for <strong>{{periodLabel}}</strong>.
+      </p>
+
+      {{#if headlineMetrics.length}}
+      <h3>Quick Overview</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+        <tbody>
+          {{#each headlineMetrics}}
+          <tr>
+            <td style="border: 1px solid #e5e7eb; padding: 10px; width: 55%;">{{label}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px; font-weight: 700;">{{value}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{/if}}
+
+      {{#if topProjects.length}}
+      <h3>{{projectSectionTitle}}</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Project</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Status</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Score</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">On-time</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each topProjects}}
+          <tr>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{projectName}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{status}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{performanceScore}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{onTimeRate}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{riskLevel}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{/if}}
+
+      {{#if topMembers.length}}
+      <h3>Top 10 Members by KPI</h3>
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Member</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Email</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Score</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">Completion</th>
+            <th style="border: 1px solid #e5e7eb; padding: 10px; text-align: left;">On-time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each topMembers}}
+          <tr>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{fullName}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{email}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{performanceScore}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{completionRate}}</td>
+            <td style="border: 1px solid #e5e7eb; padding: 10px;">{{onTimeRate}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{/if}}
+
+      <p style="color: #4b5563;">
+        Detailed CSV files are attached to this email for reconciliation and deeper analysis.
+      </p>
+      <p style="color: #6b7280; font-size: 12px;">Generated at {{generatedAt}}</p>
+    </div>
+  </body>
+</html>

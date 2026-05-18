@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ICCP OTP</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f9;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:40px 0;">
+    <tr>
+      <td align="center">
+        <table width="480" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background:#2563eb;padding:28px 32px;">
+              <h1 style="margin:0;color:#ffffff;font-size:22px;font-weight:700;">ICCP</h1>
+            </td>
+          </tr>
+          <!-- Body -->
+          <tr>
+            <td style="padding:32px;">
+              <p style="margin:0 0 12px;color:#374151;font-size:15px;">Hello <strong>{{username}}</strong>,</p>
+              {{#if (eq type "verify")}}
+              <p style="margin:0 0 20px;color:#374151;font-size:15px;">
+                Thank you for registering your ICCP account. Please enter the OTP below to verify your email address:
+              </p>
+              {{else}}
+              <p style="margin:0 0 20px;color:#374151;font-size:15px;">
+                We received a password reset request for your account. Please enter the OTP below:
+              </p>
+              {{/if}}
+
+              <!-- OTP Box -->
+              <div style="text-align:center;margin:24px 0;">
+                <span style="
+                  display:inline-block;
+                  font-size:36px;
+                  font-weight:700;
+                  letter-spacing:10px;
+                  color:#2563eb;
+                  background:#eff6ff;
+                  border:2px dashed #93c5fd;
+                  border-radius:8px;
+                  padding:14px 28px;
+                ">{{otp}}</span>
+              </div>
+
+              <p style="margin:0 0 8px;color:#6b7280;font-size:13px;text-align:center;">
+                This code is valid for <strong>{{expiryMinutes}} minute(s)</strong>.
+              </p>
+              <p style="margin:0;color:#6b7280;font-size:13px;text-align:center;">
+                If you did not make this request, please ignore this email.
+              </p>
+            </td>
+          </tr>
+          <!-- Footer -->
+          <tr>
+            <td style="background:#f9fafb;padding:16px 32px;border-top:1px solid #e5e7eb;">
+              <p style="margin:0;color:#9ca3af;font-size:12px;text-align:center;">
+                &copy; {{year}} ICCP — Internal Consulting Chatbot Platform
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
