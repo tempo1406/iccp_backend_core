@@ -1,0 +1,123 @@
+<html
+  lang='en'
+  style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;"
+>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Organization Invitation</title>
+  </head>
+  <body style='margin: 0; padding: 0; background-color: #f4f4f7;'>
+    <table
+      width='100%'
+      cellpadding='0'
+      cellspacing='0'
+      style='background-color: #f4f4f7; padding: 20px;'
+    >
+      <tr>
+        <td align='center'>
+          <table
+            width='600'
+            cellpadding='0'
+            cellspacing='0'
+            style='background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);'
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                style='background-color: #4b2c8c; padding: 30px; text-align: center;'
+              >
+                <h1 style='color: white; margin: 0; font-size: 24px;'>ICCP
+                  Platform</h1>
+              </td>
+            </tr>
+
+            <!-- Title -->
+            <tr>
+              <td style='padding: 30px; text-align: center;'>
+                <h2 style='color: #4b2c8c; margin-bottom: 10px;'>You're invited
+                  to join an organization</h2>
+                <p style='color: #555; font-size: 16px;'>
+                  <strong>{{organizationName}}</strong>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style='padding: 0 30px 30px;'>
+                <p style='font-size: 15px; color: #333;'>
+                  Hello
+                  <strong>{{email}}</strong>,
+                </p>
+                <p style='font-size: 15px; color: #333;'>
+                  You have been invited to join the organization
+                  <strong>{{organizationName}}</strong>
+                  on the ICCP platform. Please click the button below to accept
+                  the invitation.
+                </p>
+
+                {{#if invitationMessage}}
+                  <div
+                    style='margin: 20px 0; border-left: 4px solid #6a4bc3; background-color: #f7f4ff; padding: 16px;'
+                  >
+                    <p
+                      style='margin: 0 0 8px; font-size: 13px; font-weight: 700; color: #4b2c8c;'
+                    >
+                      Invitation note
+                    </p>
+                    <div
+                      style='font-size: 14px; line-height: 1.7; color: #333;'
+                    >
+                      {{{invitationMessage}}}
+                    </div>
+                  </div>
+                {{/if}}
+
+                <div style='text-align: center; margin: 25px 0;'>
+                  <a
+                    href='{{acceptUrl}}'
+                    style='
+                      background-color: #6a4bc3;
+                      color: white;
+                      padding: 14px 28px;
+                      border-radius: 6px;
+                      text-decoration: none;
+                      font-weight: bold;
+                      display: inline-block;
+                      font-size: 16px;
+                    '
+                  >Accept Invitation</a>
+                </div>
+
+                <p style='font-size: 14px; color: #777;'>
+                  Or copy the following link into your browser:
+                </p>
+                <p
+                  style='font-size: 13px; color: #4b2c8c; word-break: break-all;'
+                >
+                  {{acceptUrl}}
+                </p>
+
+                <p style='font-size: 14px; color: #999; margin-top: 20px;'>
+                  This invitation will expire on
+                  <strong>{{expiresAt}}</strong>.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style='background-color: #f0eefc; padding: 20px; text-align: center; font-size: 13px; color: #777;'
+              >
+                &copy;
+                {{year}}
+                ICCP Platform. All rights reserved.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

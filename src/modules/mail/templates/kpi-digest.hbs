@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Weekly KPI Digest</title>
+  </head>
+  <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #111827; background: #f9fafb;">
+    <div style="max-width: 720px; margin: 32px auto; background: #ffffff; border-radius: 8px; overflow: hidden; border: 1px solid #e5e7eb;">
+
+      <!-- Header -->
+      <div style="background: #1d4ed8; padding: 24px 32px;">
+        <h2 style="margin: 0; color: #ffffff; font-size: 20px;">📊 Weekly KPI Digest</h2>
+        <p style="margin: 4px 0 0; color: #bfdbfe; font-size: 14px;">{{organizationName}} · {{periodLabel}}</p>
+      </div>
+
+      <div style="padding: 24px 32px;">
+        <p style="margin-top: 0;">Hello <strong>{{recipientName}}</strong>,</p>
+        <p style="color: #6b7280; font-size: 14px; margin-top: -8px;">
+          Here is the KPI summary for your organization this week.
+        </p>
+
+        <!-- Headline Metrics -->
+        {{#if headlineMetrics.length}}
+        <h3 style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">Overview</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+          <tbody>
+            {{#each headlineMetrics}}
+            <tr>
+              <td style="border: 1px solid #e5e7eb; padding: 10px 14px; color: #374151; width: 60%;">{{label}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 10px 14px; font-weight: 700; color: #1d4ed8;">{{value}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{/if}}
+
+        <!-- Top Projects -->
+        {{#if topProjects.length}}
+        <h3 style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">Top Projects</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px;">
+          <thead>
+            <tr style="background: #f3f4f6;">
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: left;">Project</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: left;">Status</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">Score</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">On-time</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each topProjects}}
+            <tr>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px;">{{projectName}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; color: #6b7280;">{{status}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center; font-weight: 600;">{{performanceScore}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">{{onTimeRate}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">{{riskLevel}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{/if}}
+
+        <!-- Top Members -->
+        {{#if topMembers.length}}
+        <h3 style="border-bottom: 1px solid #e5e7eb; padding-bottom: 8px;">Member Performance</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px;">
+          <thead>
+            <tr style="background: #f3f4f6;">
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: left;">Member</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">Done</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">Score</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">On-time</th>
+              <th style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">Overdue</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each topMembers}}
+            <tr>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px;">{{fullName}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">{{completedTasks}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center; font-weight: 600;">{{performanceScore}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center;">{{onTimeRate}}</td>
+              <td style="border: 1px solid #e5e7eb; padding: 8px 12px; text-align: center; color: #ef4444;">{{overdueRate}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+        {{/if}}
+
+      </div>
+
+      <!-- Footer -->
+      <div style="background: #f9fafb; padding: 16px 32px; text-align: center; border-top: 1px solid #e5e7eb;">
+        <p style="margin: 0; font-size: 12px; color: #9ca3af;">
+          ICCP · Weekly KPI Digest · {{year}}<br/>
+          This email was sent automatically. Do not reply.
+        </p>
+      </div>
+
+    </div>
+  </body>
+</html>

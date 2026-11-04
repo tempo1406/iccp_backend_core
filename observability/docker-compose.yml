@@ -1,0 +1,161 @@
+# ICCP Observability Stack — Full (single file)
+# Grafana + Prometheus + Loki + Promtail + Jaeger + Node Exporter + cAdvisor
+# + Postgres Exporter + Redis Exporter + MongoDB Exporter + Blackbox Exporter
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.53.0
+    container_name: iccp_prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./prometheus/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  grafana:
+    image: grafana/grafana:10.4.3
+    container_name: iccp_grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER:-admin}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  loki:
+    image: grafana/loki:3.0.0
+    container_name: iccp_loki
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki/loki-config.yml:/etc/loki/local-config.yaml:ro
+      - loki_data:/loki
+    ports:
+      - "3100:3100"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  promtail:
+    image: grafana/promtail:3.0.0
+    container_name: iccp_promtail
+    volumes:
+      - ./promtail/promtail-config.yml:/etc/promtail/config.yml:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.58
+    container_name: iccp_jaeger
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  node-exporter:
+    image: prom/node-exporter:v1.58.1
+    container_name: iccp_node_exporter
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: iccp_cadvisor
+    privileged: true
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.15.0
+    container_name: iccp_postgres_exporter
+    environment:
+      DATA_SOURCE_NAME: postgresql://${POSTGRE_DATABASE_USERNAME:-postgres}:${POSTGRE_DATABASE_PASSWORD:-postgres}@postgres:5432/${POSTGRE_DATABASE_NAME:-iccp}?sslmode=disable
+    ports:
+      - "9187:9187"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  redis-exporter:
+    image: oliver006/redis_exporter:v1.59.0
+    container_name: iccp_redis_exporter
+    environment:
+      REDIS_ADDR: redis://${REDIS_HOST:-redis}:${REDIS_DATABASE_PORT:-6379}
+      REDIS_PASSWORD: ${REDIS_DATABASE_PASSWORD:-}
+    ports:
+      - "9121:9121"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  mongodb-exporter:
+    image: percona/mongodb_exporter:0.40
+    container_name: iccp_mongodb_exporter
+    command:
+      - '--mongodb.uri=mongodb://mongo:27017'
+      - '--collect-all'
+    ports:
+      - "9216:9216"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.25.0
+    container_name: iccp_blackbox_exporter
+    volumes:
+      - ./prometheus/blackbox.yml:/etc/blackbox_exporter/config.yml:ro
+    ports:
+      - "9115:9115"
+    restart: unless-stopped
+    networks:
+      - iccp-network
+
+volumes:
+  prometheus_data:
+  grafana_data:
+  loki_data:
+
+networks:
+  iccp-network:
+    external: true
+    name: iccp-network

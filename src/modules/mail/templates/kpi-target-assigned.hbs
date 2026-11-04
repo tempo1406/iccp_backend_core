@@ -1,0 +1,185 @@
+<html
+  lang='en'
+  style="margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif;"
+>
+  <head>
+    <meta charset='UTF-8' />
+    <title>{{title}}</title>
+  </head>
+  <body style='margin: 0; padding: 0; background-color: #f4f4f7;'>
+    <table
+      width='100%'
+      cellpadding='0'
+      cellspacing='0'
+      style='background-color: #f4f4f7; padding: 20px;'
+    >
+      <tr>
+        <td align='center'>
+          <table
+            width='600'
+            cellpadding='0'
+            cellspacing='0'
+            style='background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1);'
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                style='background-color: #4b2c8c; padding: 30px; text-align: center;'
+              >
+                <h1 style='color: white; margin: 0; font-size: 24px;'>ICCP
+                  Platform</h1>
+              </td>
+            </tr>
+
+            <!-- Title -->
+            <tr>
+              <td style='padding: 30px; text-align: center;'>
+                <h2
+                  style='color: #4b2c8c; margin: 0 0 10px; font-size: 24px; line-height: 1.35;'
+                >{{title}}</h2>
+                <p style='color: #777; font-size: 14px; margin: 0;'>
+                  From:
+                  <strong>{{senderName}}</strong>
+                </p>
+              </td>
+            </tr>
+
+            <!-- Body -->
+            <tr>
+              <td style='padding: 0 30px 30px;'>
+                <p style='font-size: 15px; color: #333; margin-top: 0;'>
+                  Hello
+                  <strong>{{recipientName}}</strong>,
+                </p>
+                <p style='font-size: 15px; color: #555; line-height: 1.6;'>
+                  {{message}}
+                </p>
+
+                <table
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  style='border-collapse: collapse; margin: 24px 0 20px; border: 1px solid #e5e1f5;'
+                >
+                  <tr>
+                    <td
+                      colspan='2'
+                      style='background-color: #f7f4ff; color: #4b2c8c; padding: 12px 14px; font-size: 13px; font-weight: 700;'
+                    >
+                      Assignment details
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style='width: 34%; border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #777; font-size: 14px;'
+                    >
+                      Scope
+                    </td>
+                    <td
+                      style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #333; font-size: 14px; font-weight: 600;'
+                    >
+                      {{scopeLabel}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #777; font-size: 14px;'
+                    >
+                      Period
+                    </td>
+                    <td
+                      style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #333; font-size: 14px; font-weight: 600;'
+                    >
+                      {{periodLabel}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #777; font-size: 14px;'
+                    >
+                      Status
+                    </td>
+                    <td
+                      style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #333; font-size: 14px; font-weight: 600;'
+                    >
+                      {{statusLabel}}
+                    </td>
+                  </tr>
+                </table>
+
+                <table
+                  width='100%'
+                  cellpadding='0'
+                  cellspacing='0'
+                  style='border-collapse: collapse; margin: 0 0 20px; border: 1px solid #e5e1f5;'
+                >
+                  <tr>
+                    <td
+                      colspan='2'
+                      style='background-color: #f7f4ff; color: #4b2c8c; padding: 12px 14px; font-size: 13px; font-weight: 700;'
+                    >
+                      Target metrics
+                    </td>
+                  </tr>
+                  {{#if metricRows.length}}
+                    {{#each metricRows}}
+                      <tr>
+                        <td
+                          style='width: 64%; border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #555; font-size: 14px;'
+                        >
+                          {{label}}
+                        </td>
+                        <td
+                          style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #4b2c8c; font-size: 16px; font-weight: 700; text-align: right;'
+                        >
+                          {{value}}
+                        </td>
+                      </tr>
+                    {{/each}}
+                  {{else}}
+                    <tr>
+                      <td
+                        colspan='2'
+                        style='border-top: 1px solid #e5e1f5; padding: 12px 14px; color: #777; font-size: 14px;'
+                      >
+                        No numeric KPI metrics were configured for this target.
+                      </td>
+                    </tr>
+                  {{/if}}
+                </table>
+
+                {{#if note}}
+                  <div
+                    style='margin: 20px 0 0; border-left: 4px solid #6a4bc3; background-color: #f7f4ff; padding: 16px;'
+                  >
+                    <p
+                      style='margin: 0 0 8px; font-size: 13px; font-weight: 700; color: #4b2c8c;'
+                    >
+                      Note
+                    </p>
+                    <p
+                      style='margin: 0; font-size: 14px; line-height: 1.7; color: #333;'
+                    >
+                      {{note}}
+                    </p>
+                  </div>
+                {{/if}}
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style='background-color: #f0eefc; padding: 20px; text-align: center; font-size: 13px; color: #777;'
+              >
+                &copy;
+                {{year}}
+                ICCP Platform. All rights reserved.
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
