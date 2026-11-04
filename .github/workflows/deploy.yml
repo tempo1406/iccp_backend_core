@@ -1,9 +1,9 @@
 name: Deploy to VPS
 
 on:
-  push:
-    branches:
-      - develop
+  # VPS deployment is paused until a hosting server is available.
+  # Run manually from GitHub Actions only after restoring VPS secrets/access.
+  workflow_dispatch:
 
 jobs:
   deploy:
